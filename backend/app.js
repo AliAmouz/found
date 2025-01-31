@@ -2,7 +2,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const bugRoutes = require('./routes/bug');
+const authRoutes = require('./routes/auth'); // Import auth routes
 
 const app = express();
 
@@ -10,13 +10,12 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Root route
-// backend/app.js
-app.get('/', (req, res) => {
-    res.redirect('/login'); // Redirect to the login page
-  });
+// Routes
+app.use('/api/auth', authRoutes); // Mount auth routes
 
-// Bug routes
-app.use('/api/bugs', bugRoutes);
+// Root route
+app.get('/', (req, res) => {
+  res.send('Welcome to the Bug Bounty Platform API!');
+});
 
 module.exports = app;
